@@ -6,9 +6,10 @@
 }
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button class="btn btn-primary">
+    @Html.ActionLink("Add Product", "Create", "Products", new { @class = "AddProdBtn" })
+</button>
+
 <table class="table table-bordered table-hover">
     <tr>
         <th>
@@ -24,23 +25,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-           <img class="img-thumbnail" style="height:40px" src="~/Content/Images/@item.Image" />
-        </td>
-        <td>
-            @Html.ActionLink(item.Name, "Details", "Products", new {id = item.Id }, null)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Genre.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        <img class="img-thumbnail" style="height:40px" src="~/Content/Images/@item.Image" />
+    </td>
+    <td>
+        @Html.ActionLink(item.Name, "Details", "Products", new { id = item.Id }, null)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Genre.Name)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
 }
 
 </table>

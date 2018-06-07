@@ -41,39 +41,35 @@ namespace TigerPaws.Controllers
         }
 
         //GET/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create()
         {
             var genres = db.Genres.ToList();
             var viewModel =new  ProductViewModel {
                 Genres = genres
             };
-            return View(viewModel);
+            return View("Create",viewModel);
         }
 
         //POST/Create
         [HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase file)
         {
-
-            if (!ModelState.IsValid)
+            if (file != null)
             {
-                return View(product);
+                product.Image = product.Id + "_" + product.Name + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("//Content//Images//" + product.Image));
             }
-            else
-            {
-                if (file != null)
-                {
-                    product.Image = product.Id + "_" + product.Name + Path.GetExtension(file.FileName);
-                    file.SaveAs(Server.MapPath("//Content//Images//") + product.Image);
-                }
 
-                db.Products.Add(product);
-                db.SaveChanges();
+            db.Products.Add(product);
+            db.SaveChanges();
 
-                return RedirectToAction("Index", "Products");
-            }
+            return RedirectToAction("Index", "Products");
         }
 
-      
-    }
+
+        
+           
+
+
+}
 }
