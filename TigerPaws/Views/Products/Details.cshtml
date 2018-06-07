@@ -1,0 +1,19 @@
+﻿@model TigerPaws.Models.Product
+
+
+<h2>@Model.Name</h2>
+<div>
+    <ul>
+        <li> 
+            <img class="img-responsive" style="height:100px" src="~/Content/Images/@Model.Image" />
+        </li>
+        <li>@Model.Genre.Name</li>
+        <li>@Model.Description</li>
+        <li>@Model.NumberInStock</li>
+    </ul>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { id = @Model.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = @Model.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = @Model.Id })
+    </div>
+</div>
