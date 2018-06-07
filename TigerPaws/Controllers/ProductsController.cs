@@ -33,7 +33,7 @@ namespace TigerPaws.Controllers
 
         public ActionResult Details(int? id)
         {
-            var product = db.Products.SingleOrDefault(p => p.Id == id);
+            var product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
 
             if (product == null)
                 return HttpNotFound();
@@ -56,8 +56,8 @@ namespace TigerPaws.Controllers
         {
             if (file != null)
             {
-                product.Image = product.Id + "_" + product.Name + Path.GetExtension(file.FileName);
-                file.SaveAs(Server.MapPath("//Content//Images//" + product.Image));
+                product.Image = product.Name + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("~/Content/Images/" + product.Image));
             }
 
             db.Products.Add(product);
@@ -66,7 +66,7 @@ namespace TigerPaws.Controllers
             return RedirectToAction("Index", "Products");
         }
 
-
+ 
         
            
 

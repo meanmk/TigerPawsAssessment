@@ -214,6 +214,14 @@
     <Compile Include="Migrations\201806070456004_AddDataAnnotation.Designer.cs">
       <DependentUpon>201806070456004_AddDataAnnotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806071207474_ErrormessageApperared.cs" />
+    <Compile Include="Migrations\201806071207474_ErrormessageApperared.Designer.cs">
+      <DependentUpon>201806071207474_ErrormessageApperared.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806071222004_ErrormessageApperared1.cs" />
+    <Compile Include="Migrations\201806071222004_ErrormessageApperared1.Designer.cs">
+      <DependentUpon>201806071222004_ErrormessageApperared1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -313,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806070456004_AddDataAnnotation.resx">
       <DependentUpon>201806070456004_AddDataAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806071207474_ErrormessageApperared.resx">
+      <DependentUpon>201806071207474_ErrormessageApperared.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806071222004_ErrormessageApperared1.resx">
+      <DependentUpon>201806071222004_ErrormessageApperared1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
