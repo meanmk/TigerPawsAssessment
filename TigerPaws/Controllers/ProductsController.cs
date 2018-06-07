@@ -66,6 +66,66 @@ namespace TigerPaws.Controllers
             return RedirectToAction("Index", "Products");
         }
 
+        //GET/Edit
+        public ActionResult Edit(int id)
+        {
+            Product product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
+
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                var viewModel = new ProductViewModel
+                {
+                    Genres = db.Genres.ToList(),
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    NumberInStock = product.NumberInStock,
+                    Image = product.Image
+                };
+                return View(viewModel);
+            }   
+                    
+        }
+
+        //POST/Edit
+        [HttpPost]
+        public ActionResult Edit(Product product, int id, HttpPostedFileBase file)
+        {
+            var productToEdit = db.Products.Include(p => p.Genre).Single(p => p.Id == id);
+
+            if (productToEdit == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(product);
+                }
+
+                if (file != null)
+                {
+                    product.Image = product.Name + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("~/Content/Images/" + product.Image));
+                }
+
+                productToEdit.Id = product.Id;
+                productToEdit.Name = product.Name;
+                productToEdit.GenreId = product.GenreId;
+                productToEdit.Description = product.Description;
+                productToEdit.NumberInStock = product.NumberInStock;
+                productToEdit.Image = product.Image;
+                             
+                db.SaveChanges();
+                return RedirectToAction("Index", "Products");
+            }
+           
+        }
  
         
            
