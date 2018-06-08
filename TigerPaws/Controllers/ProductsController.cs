@@ -82,6 +82,7 @@ namespace TigerPaws.Controllers
                     Genres = db.Genres.ToList(),
                     Id = product.Id,
                     Name = product.Name,
+                    GenreId = product.GenreId,
                     Description = product.Description,
                     NumberInStock = product.NumberInStock,
                     Image = product.Image
@@ -95,7 +96,7 @@ namespace TigerPaws.Controllers
         [HttpPost]
         public ActionResult Edit(Product product, int id, HttpPostedFileBase file)
         {
-            var productToEdit = db.Products.Include(p => p.Genre).Single(p => p.Id == id);
+            var productToEdit = db.Products.Include(p => p.Genre).Single(p => p.Id == product.Id);
 
             if (productToEdit == null)
             {
@@ -107,29 +108,25 @@ namespace TigerPaws.Controllers
                 {
                     return View(product);
                 }
-
                 if (file != null)
                 {
-                    product.Image = product.Name + Path.GetExtension(file.FileName);
-                    file.SaveAs(Server.MapPath("~/Content/Images/" + product.Image));
+                    productToEdit.Image = product.Name + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("~/Content/Images/" + productToEdit.Image));
                 }
 
-                productToEdit.Id = product.Id;
+               
                 productToEdit.Name = product.Name;
                 productToEdit.GenreId = product.GenreId;
                 productToEdit.Description = product.Description;
                 productToEdit.NumberInStock = product.NumberInStock;
-                productToEdit.Image = product.Image;
+              
+            
                              
                 db.SaveChanges();
                 return RedirectToAction("Index", "Products");
             }
            
         }
- 
-        
-           
 
-
-}
-}
+    }
+}	
