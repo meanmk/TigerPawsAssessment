@@ -22,3 +22,6 @@ select,
 textarea {
     max-width: 280px;
 }
+.input-validation-error {
+    border: solid 1px #a94442;
+}

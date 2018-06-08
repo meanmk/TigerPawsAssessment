@@ -54,6 +54,22 @@ namespace TigerPaws.Controllers
         [HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase file)
         {
+            if (!ModelState.IsValid)
+            {
+                
+                var viewModel = new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    NumberInStock = product.NumberInStock,
+                    GenreId = product.GenreId,
+                    Image = product.Image,
+                    Genres = db.Genres.ToList()
+            };
+                return View("Create", viewModel);
+            }
+
             if (file != null)
             {
                 product.Image = product.Name + Path.GetExtension(file.FileName);
@@ -68,7 +84,7 @@ namespace TigerPaws.Controllers
 
         //GET/Edit
         public ActionResult Edit(int id)
-        {
+        {        
             Product product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
 
             if (product == null)
