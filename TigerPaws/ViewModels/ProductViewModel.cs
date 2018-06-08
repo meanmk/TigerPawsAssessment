@@ -13,8 +13,10 @@ namespace TigerPaws.ViewModels
 
         public int? Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+       
         [Display(Name = "Number In Stock")]
         public int? NumberInStock { get; set; }
 

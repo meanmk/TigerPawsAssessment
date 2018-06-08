@@ -52,34 +52,26 @@ namespace TigerPaws.Controllers
 
         //POST/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
-                
-                var viewModel = new ProductViewModel
+                return HttpNotFound();
+            }
+            else
+            {                      
+                if (file != null)
                 {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Description = product.Description,
-                    NumberInStock = product.NumberInStock,
-                    GenreId = product.GenreId,
-                    Image = product.Image,
-                    Genres = db.Genres.ToList()
-            };
-                return View("Create", viewModel);
+                    product.Image = product.Name + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("~/Content/Images/" + product.Image));
+                }
+
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("Index", "Products");
+
             }
-
-            if (file != null)
-            {
-                product.Image = product.Name + Path.GetExtension(file.FileName);
-                file.SaveAs(Server.MapPath("~/Content/Images/" + product.Image));
-            }
-
-            db.Products.Add(product);
-            db.SaveChanges();
-
-            return RedirectToAction("Index", "Products");
         }
 
         //GET/Edit
@@ -110,6 +102,7 @@ namespace TigerPaws.Controllers
 
         //POST/Edit
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(Product product, int id, HttpPostedFileBase file)
         {
             var productToEdit = db.Products.Include(p => p.Genre).Single(p => p.Id == product.Id);
