@@ -137,5 +137,32 @@ namespace TigerPaws.Controllers
            
         }
 
+        //GET/Delete
+        public ActionResult Delete(int? Id)
+        {
+            if (Id == null)
+            {
+                return HttpNotFound();
+            }
+            Product product = db.Products.Include(p => p.Genre).Single(p => p.Id == Id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+        //POST/Delete
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int Id)
+        {
+            Product product = db.Products.Include(p => p.Genre).Single(p => p.Id == Id);
+            db.Products.Remove(product);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }	
