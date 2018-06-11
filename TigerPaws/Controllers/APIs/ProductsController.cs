@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using TigerPaws.DTOs;
 using TigerPaws.Models;
+using System.Data.Entity;
 
 namespace TigerPaws.Controllers.APIs
 {
@@ -22,7 +23,7 @@ namespace TigerPaws.Controllers.APIs
         //GET/api/products
         public IHttpActionResult GetProducts()
         {
-            var productsDto = db.Products.ToList().Select(Mapper.Map<Product, ProductDto>);
+            var productsDto = db.Products.Include(p => p.Genre).ToList().Select(Mapper.Map<Product, ProductDto>);
             return Ok(productsDto);
         }
 
@@ -37,21 +38,26 @@ namespace TigerPaws.Controllers.APIs
             return Ok(Mapper.Map<Product, ProductDto>(product));
         }
 
-        //POST/api/products/
+        //POST/api/products/1
         [HttpPost]
-        public IHttpActionResult CreateProducts(ProductDto productDto)
+        public IHttpActionResult CreateProduct(ProductDto productDto)
         {
-            if (!ModelState.IsValid)
-               return BadRequest();
+            if (ModelState.IsValid)
+            {
+                var product = Mapper.Map<ProductDto, Product>(productDto);
+                db.Products.Add(product);
+                db.SaveChanges();
 
-            var product = Mapper.Map<ProductDto, Product>(productDto);
-            db.Products.Add(product);
-            db.SaveChanges();
+                productDto.Id = product.Id;
 
-            productDto.Id = product.Id;
+                return Created(new Uri(Request.RequestUri + "/" + product.Id), productDto);
+            }
+            else
+            {              
+                return BadRequest();
+            } 
 
-
-            return Created(new Uri(Request.RequestUri + "/" + product.Id),productDto);
+           
         }
 
         //PUT/api/products/1

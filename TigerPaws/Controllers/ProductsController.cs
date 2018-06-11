@@ -53,7 +53,7 @@ namespace TigerPaws.Controllers
         //POST/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product product, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Exclude = "Id")] Product product, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
