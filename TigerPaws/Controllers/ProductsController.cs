@@ -182,5 +182,24 @@ namespace TigerPaws.Controllers
             return View(genres);
         }
 
+        public FileContentResult ExportToCSV()
+        {
+            var products = db.Products.Include(g => g.Genre).ToList();
+            StringWriter sw = new StringWriter();
+            sw.WriteLine("\"Id\",\"Name\",\"Genre\",\"Description\",\"Number in Stock\"");
+            foreach (var item in products)
+            {
+                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"",
+                                           item.Id,
+                                           item.Name,
+                                           item.Genre.Name,
+                                           item.Description,
+                                           item.NumberInStock));
+              
+            }
+            var fileName = "ProductList" + DateTime.Now.ToString() + ".csv";
+            return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), "text/csv", fileName);
+        }
+
     }
 }	
