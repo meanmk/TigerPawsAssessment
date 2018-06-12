@@ -1,47 +1,57 @@
 ﻿
-@* this goes to index
-
-@model IEnumerable<TigerPaws.Models.Genre>
-
-
-<ul>
-    @foreach (var genre in Model)
-    {
-        <li>>@Html.ActionLink(genre.Name, "Browse", new { genre = genre.Name })e</li>
-    }
-</ul>
-*@
-
 @model TigerPaws.Models.Genre
 
 <h2>@Model.Name</h2>
 
-<table class=" table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>Product Name</th>
-            <th>Genre</th>
-        </tr>
-    </thead>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+   
+        <table id="myTable" class=" table table-bordered table-hover">
+            <thead>
+                <tr class="header">
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
 
-    <tbody>
-        @foreach (var product in Model.Products)
-        {
-            <tr>
-                <td>
-                    <img class="img-thumbnail" style="height:40px" src="~/Content/Images/@product.Image" />
-                </td>
-                <td>
-                    @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id}, null)
-                </td>
-                <td>
-                    @product.Genre.Name
-                </td>
-            </tr>
-        }
-         <tr>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>
+                            <img class="img-thumbnail" style="height:40px" src="~/Content/Images/@product.Image" />
+                        </td>
+                        <td>
+                            @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id }, null)
+                        </td>
+                        <td>
+                            @product.Genre.Name
+                        </td>
+                    </tr>
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+        <p> @Html.ActionLink("Back to Index", "ReadOnlyIndex")</p>
+        <script>
+            function myFunction() {
+                // Declare variables
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
 
-          </tr>
-        </tbody>             
-</table>
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>

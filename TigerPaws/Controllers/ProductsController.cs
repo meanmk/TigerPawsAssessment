@@ -173,5 +173,14 @@ namespace TigerPaws.Controllers
             return View(genre);
         }
 
+        // GET: Products
+        public ActionResult ReadOnlyIndex()
+        {
+            var products = db.Products.Include(p => p.Genre).ToList();
+            var genres = db.Genres.ToList();
+
+            return View(genres);
+        }
+
     }
 }	
