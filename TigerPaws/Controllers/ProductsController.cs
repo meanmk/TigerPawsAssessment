@@ -164,5 +164,14 @@ namespace TigerPaws.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult Browse(byte id)
+        {
+            Product product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
+            Genre genre = db.Genres.Include(g => g.Products).Single(g => g.Id == id);
+
+            return View(genre);
+        }
+
     }
 }	

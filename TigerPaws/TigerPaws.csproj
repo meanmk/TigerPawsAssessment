@@ -240,6 +240,10 @@
     <Compile Include="Migrations\201806071222004_ErrormessageApperared1.Designer.cs">
       <DependentUpon>201806071222004_ErrormessageApperared1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806120703493_AddListOfProductsToGenreModel.cs" />
+    <Compile Include="Migrations\201806120703493_AddListOfProductsToGenreModel.Designer.cs">
+      <DependentUpon>201806120703493_AddListOfProductsToGenreModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -313,6 +317,7 @@
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Browse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -346,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806071222004_ErrormessageApperared1.resx">
       <DependentUpon>201806071222004_ErrormessageApperared1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806120703493_AddListOfProductsToGenreModel.resx">
+      <DependentUpon>201806120703493_AddListOfProductsToGenreModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

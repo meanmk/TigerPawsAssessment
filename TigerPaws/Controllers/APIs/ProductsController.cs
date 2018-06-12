@@ -8,6 +8,7 @@ using System.Web.Http;
 using TigerPaws.DTOs;
 using TigerPaws.Models;
 using System.Data.Entity;
+using System.Web.Mvc;
 
 namespace TigerPaws.Controllers.APIs
 {
@@ -39,7 +40,7 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //POST/api/products/1
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         public IHttpActionResult CreateProduct(ProductDto productDto)
         {
             if (ModelState.IsValid)
@@ -61,7 +62,7 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //PUT/api/products/1
-        [HttpPut]
+        [System.Web.Http.HttpPut]
         public  IHttpActionResult UpdateProduct(ProductDto productDto, int id)
         {
             if (!ModelState.IsValid)
@@ -78,7 +79,7 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //DELETE/api/customers/1
-        [HttpDelete] 
+        [System.Web.Http.HttpDelete] 
         public IHttpActionResult DeleteProduct(int id)
         {
             var productInDb = db.Products.SingleOrDefault(p => p.Id == id);
@@ -91,5 +92,6 @@ namespace TigerPaws.Controllers.APIs
 
             return Ok();
         }
+
     }
 }
