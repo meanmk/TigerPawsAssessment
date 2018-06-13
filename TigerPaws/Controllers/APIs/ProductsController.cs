@@ -8,7 +8,9 @@ using System.Web.Http;
 using TigerPaws.DTOs;
 using TigerPaws.Models;
 using System.Data.Entity;
-using System.Web.Mvc;
+
+
+
 
 namespace TigerPaws.Controllers.APIs
 {
@@ -22,16 +24,19 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //GET/api/products
-        public IHttpActionResult GetProducts()
+        public IEnumerable<ProductDto> GetProducts()
         {
-            var productsDto = db.Products.Include(p => p.Genre).ToList().Select(Mapper.Map<Product, ProductDto>);
-            return Ok(productsDto);
+            return db.Products
+                .Include(p => p.Genre)
+                .ToList()
+                .Select(Mapper.Map<Product, ProductDto>);
+           
         }
 
         //GET/api/products/1
         public IHttpActionResult GetProduct(int id)
         {
-            var product = db.Products.SingleOrDefault(p => p.Id == id);
+            var product = db.Products.Include(p=>p.Genre).SingleOrDefault(p => p.Id == id);
             
             if (product == null)
                 return NotFound();
@@ -40,7 +45,7 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //POST/api/products/1
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         public IHttpActionResult CreateProduct(ProductDto productDto)
         {
             if (ModelState.IsValid)
@@ -62,7 +67,7 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //PUT/api/products/1
-        [System.Web.Http.HttpPut]
+        [HttpPut]
         public  IHttpActionResult UpdateProduct(ProductDto productDto, int id)
         {
             if (!ModelState.IsValid)
@@ -79,7 +84,7 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //DELETE/api/customers/1
-        [System.Web.Http.HttpDelete] 
+        [HttpDelete] 
         public IHttpActionResult DeleteProduct(int id)
         {
             var productInDb = db.Products.SingleOrDefault(p => p.Id == id);
