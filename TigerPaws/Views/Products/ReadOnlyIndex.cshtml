@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<TigerPaws.Models.Genre>
 
-<div class="container">
-    <div id="tabs">
+
+    <div id="tab-container">
         <div class="col-md-10">
             <ul class="nav nav-tabs">
                 @foreach (var genre in Model)
                 {
-                <li> @Html.ActionLink(genre.Name, "Browse", "Products", new { id = genre.Id }, null)</li>                  
+                    <li><a href="#@genre.Name">@genre.Name</a></li>
+              //  <li class="tab-content"> @Html.ActionLink(genre.Name, "Browse", "Products", new { id = genre.Id, data_toggle = "tab" }, null)</li>                  
                 }
             </ul>
         </div>
+        <div class="tab-content">
+            @foreach (var genre in Model)
+            {
+            <div class="tab-pane fade">
+
+            </div>
+            }
+            
+        </div>
     </div>
-</div>
+
+
+
 
 
 
