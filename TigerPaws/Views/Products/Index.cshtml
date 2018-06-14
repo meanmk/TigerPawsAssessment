@@ -63,9 +63,7 @@
                             url: "api/products/" + button.attr("data-product-id"),
                             method: "DELETE",
                             success: function () {
-                                button.parents("tr").remove();
-                                
-                              
+                                button.parents("tr").remove();                                                          
                             }
                         });
                     }

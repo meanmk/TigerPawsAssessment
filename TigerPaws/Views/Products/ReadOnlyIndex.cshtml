@@ -1,31 +1,160 @@
 ﻿@model IEnumerable<TigerPaws.Models.Genre>
 
-
+@*
     <div id="tab-container">
         <div class="col-md-10">
             <ul class="nav nav-tabs">
                 @foreach (var genre in Model)
                 {
                     <li><a href="#@genre.Name">@genre.Name</a></li>
-              //  <li class="tab-content"> @Html.ActionLink(genre.Name, "Browse", "Products", new { id = genre.Id, data_toggle = "tab" }, null)</li>                  
+                    //  <li class="tab-content"> @Html.ActionLink(genre.Name, "Browse", "Products", new { id = genre.Id, data_toggle = "tab" }, null)</li>
                 }
             </ul>
         </div>
         <div class="tab-content">
             @foreach (var genre in Model)
             {
-            <div class="tab-pane fade">
+                <div class="tab-pane fade">
 
-            </div>
+                </div>
             }
-            
+
         </div>
     </div>
 
+*@
+<ul class="nav nav-tabs">
+   
+    <li class="active"><a data-toggle="tab" href="#teddy">Teddy Bear</a></li>
+    <li><a data-toggle="tab" href="#meanie">Meanie Kids</a></li>
+    <li><a data-toggle="tab" href="#joints">Animal with Joints</a></li>
+    <li><a data-toggle="tab" href="#noJoints">Animal with No Joints</a></li>
+    <li><a data-toggle="tab" href="#human">Human</a></li>
+</ul>
 
+<div class="tab-content">
 
+    <div id="teddy" class="tab-pane fade in active">
+        <table id="teddyTable" class="table table-striped table-bordered" cellspacing="0" width:"100%">
 
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Genre</th>
+                    <th>GenreId</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 
+    <div id="meanie" class="tab-pane fade">
+        <table id="meanieTable" class="table table-striped table-bordered" cellspacing="0" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Genre</th>
+                    <th>GenreId</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="joints" class="tab-pane fade">
+        <table id="jointsTable" class="table table-striped table-bordered" cellspacing="0" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Genre</th>
+                    <th>GenreId</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="noJoints" class="tab-pane fade">
+        <table id="noJointsTable" class="table table-striped table-bordered" cellspacing="0" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Genre</th>
+                    <th>GenreId</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="human" class="tab-pane fade">
+        <table id="humanTable" class="table table-striped table-bordered" cellspacing="0" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Genre</th>
+                    <th>GenreId</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+            });
+            $("table.table").DataTable({
+                ajax: {
+                    url: "/api/products",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, product) {
+                            return "<a href='/products/details/" + product.id + "'>" + product.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "genre.name"
+                    },
+                    {
+                        data: "genreId",
+                        visible: false                                         
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "image",
+                        render: function (data, type, product, meta) {
+                            return '<img  class="img-thumbnail" style="height:80px" src="/Content/Images/' + product.image + '">';
+                        }
+                    }
+                ]
+
+            });
+
+            $("#teddyTable").DataTable().column(2).search("1").draw();
+            $("#meanieTable").DataTable().column(2).search("2").draw();
+            $("#jointsTable").DataTable().column(2).search("3").draw();
+            $("#noJointsTable").DataTable().column(2).search("4").draw();
+            $("#humanTable").DataTable().column(2).search("5").draw();
+        });
+    </script>
+
+}
 
 
 

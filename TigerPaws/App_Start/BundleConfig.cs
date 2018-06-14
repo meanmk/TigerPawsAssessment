@@ -11,8 +11,7 @@ namespace TigerPaws
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/bootstrap.js",
-                        "~/Scripts/datatables/jquery.datatables.js",
-                        
+                        "~/Scripts/datatables/jquery.datatables.js",                        
                         "~/Scripts/datatables/datatables.bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(

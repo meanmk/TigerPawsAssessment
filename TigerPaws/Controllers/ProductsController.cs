@@ -176,10 +176,10 @@ namespace TigerPaws.Controllers
         // GET: Products
         public ActionResult ReadOnlyIndex()
         {
-            var products = db.Products.Include(p => p.Genre).ToList();
-            var genres = db.Genres.ToList();
+            //       var products = db.Products.Include(p => p.Genre).ToList();
+            //       var genres = db.Genres.ToList();  return View(genres);
 
-            return View(genres);
+            return View();
         }
 
         public FileContentResult ExportToCSV()
