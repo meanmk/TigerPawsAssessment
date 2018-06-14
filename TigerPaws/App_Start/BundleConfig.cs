@@ -25,9 +25,9 @@ namespace TigerPaws
         
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-journal3.css",
-                       "~/Content/datatables/css/datatables.bootstrap.css",
-                      "~/Content/custom.css",                     
-                      "~/Content/site.css"));
+                       "~/Content/datatables/css/datatables.bootstrap.css",                     
+                      "~/Content/site.css",
+                       "~/Content/custom.css"));
         }
     }
 }
