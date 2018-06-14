@@ -156,9 +156,9 @@ namespace TigerPaws.Controllers
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int Id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Products.Include(p => p.Genre).Single(p => p.Id == Id);
+            Product product = db.Products.Include(p => p.Genre).Single(p => p.Id == id);
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");
