@@ -1,26 +1,5 @@
-﻿@import url("https://fonts.googleapis.com/css?family=Neucha|Cabin+Sketch");
+﻿
+ 
+   
 
-body {
-    font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-
-.navbar {
-    font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-.navbar-toggle {
-    
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color: transparent;
-    border: 2px solid transparent;
-    border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
-    button, input, optgroup, select, textarea {
-    font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
-
-.navbar-brand {
-    font-family: "Cabin Sketch", cursive;
-    font-weight: normal;
-}
 
