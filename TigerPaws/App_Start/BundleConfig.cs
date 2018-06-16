@@ -27,7 +27,7 @@ namespace TigerPaws
                       "~/Content/bootstrap-journal3.css",
                        "~/Content/datatables/css/datatables.bootstrap.css",                     
                       "~/Content/site.css",
-                       "~/Content/customtheme.css"));
+                       "~/Content/custom_theme.css"));
         }
     }
 }

@@ -1,16 +1,36 @@
-﻿body {
+﻿/*----------------------------------------------------------------------------------------
+    BRAND COLOR
+ ---------------------
+    brand-primary: color: #f4537b;
+    success:color: #30bdbe;
+    info:color: #3a87ad;
+    warning: color: #c09853;
+    focus:color: #a47e3c;
+    danger:color: #b94a48;
+    gray:rgb(119, 119, 119);
+-------------------------------------------------------------------------------------------*/
+
+
+
+
+body {
     padding-top: 85px;
     padding-bottom: 20px;
     padding-left:20px;
     padding-right:20px;
+  
     
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {  
-    padding: 30px;   
-    background-color:white;
-    border-radius:10px;
+.body-content {
+    padding-top: 30px;    
+    padding-bottom:15px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -28,4 +48,11 @@ textarea {
 }
 .input-validation-error {
     border: solid 1px #a94442;
+}
+
+main{
+    margin-bottom: 30px;
+}
+footer {
+    margin-top:auto;
 }

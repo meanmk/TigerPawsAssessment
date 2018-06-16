@@ -6,9 +6,9 @@
 }
 
 
-<button class="btn btn-default">
+
     @Html.ActionLink("Add Product", "Create", "Products", new { @class = "btn btn-primary" })
-</button>
+
 
 <table id="productTbl" class="table table-bordered table-hover">
     <tr>
@@ -47,7 +47,9 @@
 </table>
 
 <div class="ExportSection">
-    @Html.ActionLink("Export to Csv", "ExportToCsv")
+    <button class="btn-default">
+        @Html.ActionLink("Export to Csv", "ExportToCsv")
+    </button>
 </div>
 
     @section scripts
