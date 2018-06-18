@@ -10,6 +10,7 @@ using TigerPaws.ViewModels;
 
 namespace TigerPaws.Controllers
 {
+    [AllowAnonymous]
     public class ContactController : Controller
     {
         [HttpGet]

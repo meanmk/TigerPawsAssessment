@@ -1078,7 +1078,7 @@ body {
     font-size: 15px;
     line-height: 1.42857143;
     color: #777777;
-    background-color: #30bdbe;
+    background-color: #F0978B;
 }
 input,
 button,
@@ -1089,8 +1089,8 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #f4537b;
-  text-decoration: none;
+    color: #F0978B;
+    text-decoration: none;
 }
 a:hover,
 a:focus {
@@ -1138,8 +1138,8 @@ img {
 hr {
   margin-top: 21px;
   margin-bottom: 21px;
-  border: 0;
-  border-top: 1px solid #ffffff;
+ 
+  border-top: 2px solid #666666;
 }
 .sr-only {
   position: absolute;
@@ -1433,6 +1433,7 @@ ol ol {
 dl {
   margin-top: 0;
   margin-bottom: 21px;
+
 }
 dt,
 dd {
@@ -1447,15 +1448,17 @@ dd {
 @media (min-width: 768px) {
   .dl-horizontal dt {
     float: left;
-    width: 160px;
+    width: 130px;
     clear: left;
-    text-align: right;
+    text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size:large;
   }
   .dl-horizontal dd {
-    margin-left: 180px;
+    margin-left: 150px;
+    font-size:large;
   }
 }
 abbr[title],
@@ -2279,9 +2282,9 @@ th {
 .table > thead:first-child > tr:first-child > td {
   border-top: 0;
 }
-.table > tbody + tbody {
-  border-top: 2px solid #f4537b;
-}
+    .table > tbody + tbody {
+        border-top: 2px solid #F0978B;
+    }
 .table .table {
   background-color: #ffffff;
 }
@@ -2294,16 +2297,16 @@ th {
   padding: 5px;
 }
 .table-bordered {
-  border: 1px solid #f4537b;
+    border: 1px solid #F0978B;
 }
-.table-bordered > thead > tr > th,
-.table-bordered > tbody > tr > th,
-.table-bordered > tfoot > tr > th,
-.table-bordered > thead > tr > td,
-.table-bordered > tbody > tr > td,
-.table-bordered > tfoot > tr > td {
-  border: 1px solid #f4537b;
-}
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+        border: 1px solid #F0978B;
+    }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
@@ -3049,8 +3052,8 @@ fieldset[disabled] a.btn {
 .btn-default {
     color: #f4537b;
     background-color: #ffffff;
-    border-color: #f4537b;
-    border-radius:8px;
+    border-color: #F0978B;
+    border-radius: 8px;
 }
     .btn-default:focus, .btn-default.focus {
   color: #ffffff;
@@ -3104,9 +3107,9 @@ fieldset[disabled] .btn-default.focus {
   background-color: #ffffff;
 }
 .btn-primary {
-  color: #ffffff;
-  background-color: #f4537b;
-  border-color: #f4537b;
+    color: #ffffff;
+    background-color: #F0978B;
+    border-color: #F0978B;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -4261,6 +4264,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   font-size: 19px;
   line-height: 21px;
   height: 60px;
+  background-color:#ffffff;
+  border-radius:10px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -4272,7 +4277,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand {
-    margin-left: -15px;
+    margin-left: -30px;
   }
 }
 .navbar-toggle {
@@ -4572,8 +4577,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #cccccc;
 }
 .navbar-inverse {
-  background-color: #f4537b;
-  border-color: #f12356;
+    background-color: #85D68F;
+    border-color: #F0978B;
 }
 .navbar-inverse .navbar-brand {
   color: #ffffff;
@@ -4700,18 +4705,18 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li {
   display: inline;
 }
-.pagination > li > a,
-.pagination > li > span {
-  position: relative;
-  float: left;
-  padding: 8px 12px;
-  line-height: 1.42857143;
-  text-decoration: none;
-  color: #f4537b;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  margin-left: -1px;
-}
+    .pagination > li > a,
+    .pagination > li > span {
+        position: relative;
+        float: left;
+        padding: 8px 12px;
+        line-height: 1.42857143;
+        text-decoration: none;
+        color: #F0978B;
+        background-color: #ffffff;
+        border: 1px solid #dddddd;
+        margin-left: -1px;
+    }
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
   margin-left: 0;
@@ -4732,18 +4737,18 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   background-color: #ffffff;
   border-color: #dddddd;
 }
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
-  z-index: 3;
-  color: #ffffff;
-  background-color: #f5f5f5;
-  border-color: #dddddd;
-  cursor: default;
-}
+    .pagination > .active > a,
+    .pagination > .active > span,
+    .pagination > .active > a:hover,
+    .pagination > .active > span:hover,
+    .pagination > .active > a:focus,
+    .pagination > .active > span:focus {
+        z-index: 3;
+        color: #F0978B;
+        background-color: #f5f5f5;
+        border-color: #dddddd;
+        cursor: default;
+    }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
 .pagination > .disabled > span:focus,

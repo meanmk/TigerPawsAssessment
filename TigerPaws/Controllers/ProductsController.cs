@@ -10,6 +10,7 @@ using TigerPaws.ViewModels;
 
 namespace TigerPaws.Controllers
 {
+  [AllowAnonymous]
     public class ProductsController : Controller
     {
         private ApplicationDbContext db;
@@ -27,8 +28,10 @@ namespace TigerPaws.Controllers
         public ActionResult Index()
         {
             var products = db.Products.Include(p => p.Genre).ToList();
+           
 
-            return View(products);
+           
+            return View();
         }
 
         public ActionResult Details(int? id)

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace TigerPaws.Controllers
 {
+    [AllowAnonymous]
     public class ForumController : Controller
     {
         // GET: Forum

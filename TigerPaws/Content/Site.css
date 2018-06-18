@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------------------------------
     BRAND COLOR
  ---------------------
-    brand-primary: color: #f4537b;
-    success:color: #30bdbe;
-    info:color: #3a87ad;
-    warning: color: #c09853;
+    brand-primary: color: #F0978B;
+    success:color: #85D68F;
+    info:color: #FFD57E;
+    warning: color: #FF931E;
     focus:color: #a47e3c;
     danger:color: #b94a48;
     gray:rgb(119, 119, 119);
@@ -51,8 +51,28 @@ textarea {
 }
 
 main{
+    padding:20px;
     margin-bottom: 30px;
 }
 footer {
     margin-top:auto;
 }
+
+.table{
+    margin-top:15px;
+    margin-bottom:15px;
+}
+
+.details-image{
+margin-bottom:15px;
+}
+
+.media-container{
+margin-top:50px;
+}
+.news-container{
+    margin-bottom:50px;
+}
+    .news-container h3 {
+        color: #b94a48;
+    }

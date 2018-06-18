@@ -11,21 +11,27 @@
 
 
 <table id="productTbl" class="table table-bordered table-hover">
-    <tr>
-        <th>
-            Image
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            Genre
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Genre
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Number In Stock
+            </th>
+            <th>
+                Image
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+ @* @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -43,11 +49,12 @@
                 <button data-product-id="@item.Id" class="btn btn-link js-delete">Delete</button>
             </td>
         </tr>
-    }
+    } *@
+
 </table>
 
 <div class="ExportSection">
-    <button class="btn-default">
+    <button class="btn btn-default">
         @Html.ActionLink("Export to Csv", "ExportToCsv")
     </button>
 </div>
@@ -56,7 +63,44 @@
 {
         <script>
             $(document).ready(function () {
-               
+                $("#productTbl").DataTable({
+                    ajax: {
+                        url: "/api/products",
+                        dataSrc: ""
+                    },
+                    columns: [
+                        {
+                            data: "name",
+                            render: function (data, type, product) {
+                                return " @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) | <a href='/products/details/" + product.id + "'>" + product.name + "</a>";
+                            }
+                        },
+                        {
+                            data: "genre.name"
+                        },
+                        {
+                            data: "description",
+                            
+                        },
+                        {
+                            data: "numberInStock"
+                        },
+                        {
+                            data: "image",
+                            render: function (data, type, product, meta) {
+                                return '<img  class="img-thumbnail" style="height:40px" src="/Content/Images/' + product.image + '">';
+                            }
+                        },
+                        {
+                            data: "id",
+                            render: function (data) {
+                                return "<button class='btn-link js-delete' data-product-id=" + data + ">Delete</button>|<";
+                            }
+                        }
+                    ]
+
+                });
 
                  $("#productTbl").on("click", ".js-delete", function () {
                     var button = $(this);
