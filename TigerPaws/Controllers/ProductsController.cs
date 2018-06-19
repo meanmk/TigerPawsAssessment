@@ -27,7 +27,7 @@ namespace TigerPaws.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Genre).ToList();
+           // var products = db.Products.Include(p => p.Genre).ToList();
            
 
            

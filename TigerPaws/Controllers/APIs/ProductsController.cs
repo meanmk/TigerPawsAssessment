@@ -24,13 +24,14 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //GET/api/products
-        public IEnumerable<ProductDto> GetProducts()
+        public IHttpActionResult GetProducts()
         {
-            return db.Products
+            var productDtos = db.Products
                 .Include(p => p.Genre)
                 .ToList()
                 .Select(Mapper.Map<Product, ProductDto>);
-           
+
+            return Ok(productDtos);
         }
 
         //GET/api/products/1
