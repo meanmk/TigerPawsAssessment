@@ -23,6 +23,7 @@ namespace TigerPaws.Controllers.APIs
             db = new ApplicationDbContext();
         }
 
+        [AllowAnonymous]
         //GET/api/products
         public IHttpActionResult GetProducts()
         {
@@ -34,6 +35,7 @@ namespace TigerPaws.Controllers.APIs
             return Ok(productDtos);
         }
 
+        [AllowAnonymous]
         //GET/api/products/1
         public IHttpActionResult GetProduct(int id)
         {
@@ -47,6 +49,7 @@ namespace TigerPaws.Controllers.APIs
 
         //POST/api/products/1
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageProducts)]
         public IHttpActionResult CreateProduct(ProductDto productDto)
         {
             if (ModelState.IsValid)
@@ -62,13 +65,12 @@ namespace TigerPaws.Controllers.APIs
             else
             {              
                 return BadRequest();
-            } 
-
-           
+            }            
         }
 
         //PUT/api/products/1
         [HttpPut]
+        [Authorize(Roles = RoleName.CanManageProducts)]
         public  IHttpActionResult UpdateProduct(ProductDto productDto, int id)
         {
             if (!ModelState.IsValid)
@@ -85,7 +87,8 @@ namespace TigerPaws.Controllers.APIs
         }
 
         //DELETE/api/customers/1
-        [HttpDelete] 
+        [HttpDelete]
+        [Authorize(Roles = RoleName.CanManageProducts)]
         public IHttpActionResult DeleteProduct(int id)
         {
             var productInDb = db.Products.SingleOrDefault(p => p.Id == id);

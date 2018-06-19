@@ -10,7 +10,7 @@ using TigerPaws.ViewModels;
 
 namespace TigerPaws.Controllers
 {
-  [AllowAnonymous]
+  
     public class ProductsController : Controller
     {
         private ApplicationDbContext db;
@@ -23,17 +23,16 @@ namespace TigerPaws.Controllers
             db.Dispose();    
         }
 
-
+        [AllowAnonymous]
         // GET: Products
         public ActionResult Index()
         {
-           // var products = db.Products.Include(p => p.Genre).ToList();
-           
-
-           
-            return View();
+            if (User.IsInRole(RoleName.CanManageProducts))
+                return View("Index");
+            return View("ReadOnlyIndex");        
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             var product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
@@ -43,7 +42,9 @@ namespace TigerPaws.Controllers
             return View(product);
         }
 
-        //GET/Create
+
+        //GET/
+        [Authorize(Roles = RoleName.CanManageProducts)]
         public ActionResult Create()
         {
             var genres = db.Genres.ToList();
@@ -53,8 +54,10 @@ namespace TigerPaws.Controllers
             return View("Create",viewModel);
         }
 
+      
         //POST/Create
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageProducts)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Exclude = "Id")] Product product, HttpPostedFileBase file)
         {
@@ -77,7 +80,9 @@ namespace TigerPaws.Controllers
             }
         }
 
+
         //GET/Edit
+        [Authorize(Roles = RoleName.CanManageProducts)]
         public ActionResult Edit(int id)
         {        
             Product product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
@@ -100,11 +105,12 @@ namespace TigerPaws.Controllers
                 };
                 return View(viewModel);
             }   
-                    
         }
 
+       
         //POST/Edit
         [HttpPost]
+        [Authorize(Roles = RoleName.CanManageProducts)]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Product product, int id, HttpPostedFileBase file)
         {
@@ -124,9 +130,7 @@ namespace TigerPaws.Controllers
                 {
                     productToEdit.Image = product.Name + Path.GetExtension(file.FileName);
                     file.SaveAs(Server.MapPath("~/Content/Images/" + productToEdit.Image));
-                }
-
-               
+                }            
                 productToEdit.Name = product.Name;
                 productToEdit.GenreId = product.GenreId;
                 productToEdit.Description = product.Description;
@@ -136,10 +140,10 @@ namespace TigerPaws.Controllers
                              
                 db.SaveChanges();
                 return RedirectToAction("Index", "Products");
-            }
-           
+            }          
         }
 
+        [Authorize(Roles = RoleName.CanManageProducts)]
         //GET/Delete
         public ActionResult Delete(int? Id)
         {
@@ -155,6 +159,7 @@ namespace TigerPaws.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = RoleName.CanManageProducts)]
         //POST/Delete
         [HttpPost]
         [ActionName("Delete")]

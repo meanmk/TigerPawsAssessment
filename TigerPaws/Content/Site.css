@@ -76,3 +76,6 @@ margin-top:50px;
     .news-container h3 {
         color: #b94a48;
     }
+.dataTables_wrapper{
+    margin-top:15px;
+}
