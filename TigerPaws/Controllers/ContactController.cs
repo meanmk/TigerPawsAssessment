@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using TigerPaws.ViewModels;
+using System.Threading.Tasks;
 
 
 
@@ -20,30 +21,24 @@ namespace TigerPaws.Controllers
         }
 
         [HttpPost]
-        public  ActionResult Index(ContactViewModel vm)
+        public  ActionResult Index(ContactViewModel viewmodel)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    MailMessage message = new MailMessage();
-                    message.From = new MailAddress(vm.Email);
-                                                         
-                    message.To.Add("tigerpawscontact@gmail.com");
-                    message.Subject = vm.Subject;
-                    message.Body = vm.Message;
+                    MailMessage msz = new MailMessage(viewmodel.Email, "tigerpawscontact@gmail.com");                
+                    msz.From = new MailAddress(viewmodel.Email);                                                                          
+                    msz.Subject =  viewmodel.Subject;
+                    msz.Body =  viewmodel.Name + "\n" + viewmodel.Email + "\n" + viewmodel.Message;
+
                     SmtpClient smtp = new SmtpClient();
-
                     smtp.Host = "smtp.gmail.com";
-
                     smtp.Port = 587;
-
                     smtp.Credentials = new System.Net.NetworkCredential
-                    ("tigerpawscontact@gmail.com", "password");
-
+                    ("tigerpawscontact@gmail.com", "rmnfexrafvgelxfh");
                     smtp.EnableSsl = true;
-
-                    smtp.Send(message);
+                    smtp.Send(msz);
 
                     ModelState.Clear();
                     ViewBag.Message = "Thank you for Contacting us ";

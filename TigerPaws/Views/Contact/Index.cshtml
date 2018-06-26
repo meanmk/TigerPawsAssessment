@@ -1,66 +1,73 @@
 ﻿@model TigerPaws.ViewModels.ContactViewModel
 
-<div class="company-information col-md-5">
-    <img src="~/Content/Images/Tiger Paws 200w.png" />
-    <h2>Tiger Paws</h2>
-    <p>123 Main rd CBD</p>
-    <p>Melbourne VIC 3000</p>
-    <p>03 1234 56</p>
+<div class="info-container">
+    <div class="company-information col-md-5">
+        <img src="~/Content/Images/Tiger Paws 200w.png" />
+        <h2>Tiger Paws</h2>
+        <p>123 Main rd CBD</p>
+        <p>Melbourne VIC 3000</p>
+        <p>03 1234 56</p>
+    </div>
+</div>
+<div>
+    @if (ViewBag.Message == null)
+    {
+        <div class="form-horizontal contact-form col-md-7">
+            <h1>Contact Us</h1>
+
+            @Html.AntiForgeryToken()
+
+            <form method="post">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control", rows = "6" } })
+                        @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                    </div>
+                </div>  
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary"> Send </button>                      
+                    </div>
+                </div>
+               
+            </form>
+        </div>
+    }
 </div>
 
-
-   <div>
-      
-        @if (ViewBag.Message == null)
-        {      <div class="contact-form col-md-7">
-    <h1>Contact Us</h1>
-    <form method="post">
-        <div class="form-group">
-            <label asp-for="Name">Name</label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name"
-                  class="text-muted"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Email">Email</label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email"
-                  class="text-muted"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Subject">Subject</label>
-            <input asp-for="Subject" class="form-control" />
-            <span asp-validation-for="Subject"
-                  class="text-muted"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Message">Message</label>
-            <textarea rows="5" cols="15"
-                      asp-for="Message" class="form-control"></textarea>
-            <span asp-validation-for="Message"
-                  class="text-muted"></span>
-        </div>
-        <div>
-            <button type="submit"
-                    class="btn btn-primary">
-                Send
-            </button>
-        </div>
-    </form>
-</div>
+<div>
+    <div>
+        @if (ViewBag.Message != null)
+        {
+            <div>@ViewBag.Message</div>
         }
     </div>
-
-    <div>
-        <div>
-            @if (ViewBag.Message != null)
-            {
-                <div>@ViewBag.Message</div>
-
-
-            }
-        </div>
-    </div>
 </div>
 
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
 
