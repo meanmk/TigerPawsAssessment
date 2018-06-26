@@ -23,8 +23,7 @@ namespace TigerPaws
                         "~/Scripts/modernizr-*"));
 
         
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-journal3.css",
+            bundles.Add(new StyleBundle("~/Content/css").Include(                     
                        "~/Content/datatables/css/datatables.bootstrap.css",                     
                       "~/Content/site.css",
                        "~/Content/custom_theme.css"));

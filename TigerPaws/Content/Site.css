@@ -79,3 +79,14 @@ margin-top:50px;
 .dataTables_wrapper{
     margin-top:15px;
 }
+
+.company-information {
+    display: block;
+    text-align: center;
+    margin-left: -30px;
+}
+.contact-form{
+    display:block;
+    float:left;
+    margin-left:30px;
+}

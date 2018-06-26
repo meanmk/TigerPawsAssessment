@@ -29,17 +29,17 @@ namespace TigerPaws.Controllers
                     MailMessage message = new MailMessage();
                     message.From = new MailAddress(vm.Email);
                                                          
-                    message.To.Add("contact@tigerpaws.com");
+                    message.To.Add("tigerpawscontact@gmail.com");
                     message.Subject = vm.Subject;
                     message.Body = vm.Message;
                     SmtpClient smtp = new SmtpClient();
 
-                    smtp.Host = "smtp.tigerpaws.com";
+                    smtp.Host = "smtp.gmail.com";
 
-                    smtp.Port = 000;
+                    smtp.Port = 587;
 
                     smtp.Credentials = new System.Net.NetworkCredential
-                    ("contact@tigerpaws.com", "password");
+                    ("tigerpawscontact@gmail.com", "password");
 
                     smtp.EnableSsl = true;
 
