@@ -1,0 +1,32 @@
+﻿@model IEnumerable<TigerPaws.Models.Audit>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>           
+            <th>
+                @Html.DisplayNameFor(model => model.URLAccessed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeAccessed)
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.URLAccessed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeAccessed)
+            </td>
+        </tr>
+    }
+</table>
+

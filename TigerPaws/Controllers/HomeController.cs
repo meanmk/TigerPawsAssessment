@@ -4,15 +4,19 @@ using System.Linq;
 using System.Web;
 
 using System.Web.Mvc;
+using TigerPaws.Models;
 
 namespace TigerPaws.Controllers
 {
-   [AllowAnonymous]
+    [Audit]
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole(RoleName.CanManageProducts))
+                return View("Index");
+            return View("ReadOnlyIndex");
         }
 
         public ActionResult About()

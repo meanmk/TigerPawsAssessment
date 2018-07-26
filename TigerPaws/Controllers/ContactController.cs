@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace TigerPaws.Controllers
 {
+    [Audit]
     [AllowAnonymous]
     public class ContactController : Controller
     {

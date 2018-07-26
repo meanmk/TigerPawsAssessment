@@ -13,7 +13,7 @@
     <div class="tab-content">
 
         <div id="teddy" class="tab-pane fade in active">
-            <table id="teddyTable" class="table table-striped table-bordered" cellspacing="0" width:"100%">
+            <table id="teddyTable" class="table table-striped table-bordered" cellspacing="0" style="Width:100%">
 
                 <thead>
                     <tr>
@@ -118,7 +118,7 @@
                     {
                         data: "image",
                         render: function (data, type, product, meta) {
-                            return '<img  class="img-thumbnail" style="height:80px" src="/Content/Images/' + product.image + '">';
+                            return '<img  class="img-thumbnail" style="height:80px" alt="Image of '+product.name+'" src="/Content/Images/' + product.image + '">';
                         }
                     }
                 ]

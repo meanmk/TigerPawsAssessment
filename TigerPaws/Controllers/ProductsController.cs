@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Linq;
 using TigerPaws.Models;
 using TigerPaws.ViewModels;
 
 namespace TigerPaws.Controllers
 {
-  
+    [Audit]
     public class ProductsController : Controller
     {
         private ApplicationDbContext db;
@@ -20,7 +24,7 @@ namespace TigerPaws.Controllers
         }
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();    
+            db.Dispose();
         }
 
         [AllowAnonymous]
@@ -29,7 +33,7 @@ namespace TigerPaws.Controllers
         {
             if (User.IsInRole(RoleName.CanManageProducts))
                 return View("Index");
-            return View("ReadOnlyIndex");        
+            return View("ReadOnlyIndex");
         }
 
         [AllowAnonymous]
@@ -48,13 +52,14 @@ namespace TigerPaws.Controllers
         public ActionResult Create()
         {
             var genres = db.Genres.ToList();
-            var viewModel =new  ProductViewModel {
+            var viewModel = new ProductViewModel
+            {
                 Genres = genres
             };
-            return View("Create",viewModel);
+            return View("Create", viewModel);
         }
 
-      
+
         //POST/Create
         [HttpPost]
         [Authorize(Roles = RoleName.CanManageProducts)]
@@ -66,7 +71,7 @@ namespace TigerPaws.Controllers
                 return HttpNotFound();
             }
             else
-            {                      
+            {
                 if (file != null)
                 {
                     product.Image = product.Name + Path.GetExtension(file.FileName);
@@ -84,7 +89,7 @@ namespace TigerPaws.Controllers
         //GET/Edit
         [Authorize(Roles = RoleName.CanManageProducts)]
         public ActionResult Edit(int id)
-        {        
+        {
             Product product = db.Products.Include(p => p.Genre).SingleOrDefault(p => p.Id == id);
 
             if (product == null)
@@ -104,10 +109,10 @@ namespace TigerPaws.Controllers
                     Image = product.Image
                 };
                 return View(viewModel);
-            }   
+            }
         }
 
-       
+
         //POST/Edit
         [HttpPost]
         [Authorize(Roles = RoleName.CanManageProducts)]
@@ -130,17 +135,17 @@ namespace TigerPaws.Controllers
                 {
                     productToEdit.Image = product.Name + Path.GetExtension(file.FileName);
                     file.SaveAs(Server.MapPath("~/Content/Images/" + productToEdit.Image));
-                }            
+                }
                 productToEdit.Name = product.Name;
                 productToEdit.GenreId = product.GenreId;
                 productToEdit.Description = product.Description;
                 productToEdit.NumberInStock = product.NumberInStock;
-              
-            
-                             
+
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index", "Products");
-            }          
+            }
         }
 
         [Authorize(Roles = RoleName.CanManageProducts)]
@@ -192,22 +197,108 @@ namespace TigerPaws.Controllers
 
         public FileContentResult ExportToCSV()
         {
+
             var products = db.Products.Include(g => g.Genre).ToList();
             StringWriter sw = new StringWriter();
-            sw.WriteLine("\"Id\",\"Name\",\"Genre\",\"Description\",\"Number in Stock\"");
+            sw.WriteLine("Id,Name,Genre,Description,Number in Stock");
             foreach (var item in products)
             {
-                sw.WriteLine(string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\"",
+                sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
                                            item.Id,
                                            item.Name,
                                            item.Genre.Name,
                                            item.Description,
                                            item.NumberInStock));
-              
             }
+
+
             var fileName = "ProductList" + DateTime.Now.ToString() + ".csv";
             return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), "text/csv", fileName);
+
+        }
+        public ActionResult ViewCSV()
+        {
+
+            var products = db.Products.Include(g => g.Genre).ToList();
+            using (StringWriter sw = new StringWriter())
+            {
+                sw.WriteLine("Id,Name,Genre,Description,Number in Stock");
+                foreach (var item in products)
+                {
+                    sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
+                                               item.Id,
+                                               item.Name,
+                                               item.Genre.Name,
+                                               item.Description,
+                                               item.NumberInStock));
+                }
+                string result = sw.ToString();
+                ViewBag.Data = result;
+
+            }
+            return View();
         }
 
+        public ActionResult CSVtoXML()
+        {
+
+            DataTable dt = new DataTable();
+            var products = db.Products.Include(g => g.Genre).ToList();
+
+            using (var mem = new MemoryStream())
+            {
+                using (var sw = new StreamWriter(mem, Encoding.UTF8))
+                {
+                    sw.WriteLine("Id,Name,Genre,Description,Number in Stock");
+
+                    foreach (var item in products)
+                    {
+                        sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
+                                                   item.Id,
+                                                   item.Name,
+                                                   item.Genre.Name,
+                                                   item.Description,
+                                                   item.NumberInStock));
+                    }
+                    sw.Flush();
+                    mem.Position = 0;
+
+                    using (StreamReader streamReader = new StreamReader(mem))
+                    {
+                        string[] headers = streamReader.ReadLine().Split(',');
+
+                        foreach (string header in headers)
+                        {
+                            dt.Columns.Add(header);
+                        }
+
+                        while (!streamReader.EndOfStream)
+                        {
+                            string[] rows = streamReader.ReadLine().Split(',');
+
+                            if (rows.Length > 1)
+                            {
+                                DataRow dr = dt.NewRow();
+
+                                for (int i = 0; i < headers.Length; i++)
+                                {
+                                    dr[i] = rows[i].Trim();
+                                }
+
+                                dt.Rows.Add(dr);
+                            }
+
+                        }
+                    }
+                    dt.TableName = "Product";
+                    string filePath = Server.MapPath("~/Content/Temp/writexml.xml");
+                    //Write xml file and save in the file path
+                    dt.WriteXml(filePath);
+                    var saveName = "ProductList" + DateTime.Now.ToString() + ".xml";
+                    //File download
+                    return File(Server.MapPath("~/Content/Temp/writexml.xml"), "application/xml", saveName);
+               }
+            }
+        }
     }
-}	
+}

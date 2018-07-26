@@ -14,7 +14,7 @@ using System.Data.Entity;
 
 namespace TigerPaws.Controllers.APIs
 {
-   
+  
     public class ProductsController : ApiController
     {
         private ApplicationDbContext db;
@@ -23,7 +23,7 @@ namespace TigerPaws.Controllers.APIs
             db = new ApplicationDbContext();
         }
 
-        [AllowAnonymous]
+        
         //GET/api/products
         public IHttpActionResult GetProducts()
         {
@@ -35,7 +35,7 @@ namespace TigerPaws.Controllers.APIs
             return Ok(productDtos);
         }
 
-        [AllowAnonymous]
+       
         //GET/api/products/1
         public IHttpActionResult GetProduct(int id)
         {

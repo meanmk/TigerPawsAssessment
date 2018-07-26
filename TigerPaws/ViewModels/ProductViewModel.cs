@@ -27,5 +27,6 @@ namespace TigerPaws.ViewModels
         public byte? GenreId { get; set; }
 
         public string Image { get; set; }
+      
     }
 }

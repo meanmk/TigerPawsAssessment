@@ -7,23 +7,24 @@
     warning: color: #FF931E;
     focus:color: #a47e3c;
     danger:color: #b94a48;
-    gray:rgb(119, 119, 119);
+    gray:#595959;
+-------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------
+    BRAND FONT
+---------------------
+    font-family: "Neucha", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
 -------------------------------------------------------------------------------------------*/
 
 
 
-
 body {
-    padding-top: 85px;
-    padding-bottom: 20px;
-    padding-left:20px;
-    padding-right:20px;
-  
-    
+    padding: 85px 20px 20px 20px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-top:1%;
     padding-top: 30px;    
     padding-bottom:15px;
     background-color: white;
@@ -31,6 +32,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -93,4 +95,14 @@ margin-top:50px;
     display:block;
     float:left;
     margin-left:30px;
+}
+
+.linkButton {
+    margin-top: 15px;
+    margin-left: 15px;
+    float: left;
+}
+
+.exportButton{
+    margin-top: 30px;
 }

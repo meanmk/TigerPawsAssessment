@@ -19,7 +19,7 @@
                 {
                     <tr>
                         <td>
-                            <img class="img-thumbnail" style="height:40px" src="~/Content/Images/@product.Image" />
+                            <img class="img-thumbnail" style="height:40px" src="~/Content/Images/@product.Image"/>
                         </td>
                         <td>
                             @Html.ActionLink(product.Name, "Details", "Products", new { id = product.Id }, null)
@@ -33,6 +33,8 @@
             </tbody>
         </table>
         <p> @Html.ActionLink("Back to Index", "ReadOnlyIndex")</p>
+
+
         <script>
             function myFunction() {
                 // Declare variables
