@@ -1,0 +1,32 @@
+﻿@using TigerPaws.Helper
+
+<h2>View XML</h2>
+<button class="button1 btn btn-primary">Style 1</button>
+<button class="button2 btn btn-primary">Style 2</button>
+
+<div class="myStyle1 " style="display:none">
+    @Html.RenderXml(ViewBag.Data as string, Server.MapPath("~/Content/myStyle1.xslt"))
+</div>
+
+
+<div class="myStyle2 " style="display:none">
+    @Html.RenderXml(ViewBag.Data as string, Server.MapPath("~/Content/myStyle2.xslt"))
+</div>
+
+@Scripts.Render("~/bundles/lib")
+<script>
+    $(function () {        
+        $('.button1').click(function () {
+            $('.myStyle1').toggle();
+            element.classList.toggle("mystyle");
+        });
+    });
+
+    $(function () {
+        $('.button2').click(function () {
+            $('.myStyle2').toggle();
+            element.classList.toggle("mystyle");
+        });
+    });
+</script>
+

@@ -5,69 +5,69 @@
     <Name>Dora</Name>
     <Genre>Human</Genre>
     <Description>vintage barbie</Description>
-    <Number_x0020_in_x0020_Stock>1</Number_x0020_in_x0020_Stock>
+    <NumberInStock>1</NumberInStock>
   </Product>
   <Product>
     <Id>2036</Id>
     <Name>Joe</Name>
     <Genre>Human</Genre>
     <Description>elf</Description>
-    <Number_x0020_in_x0020_Stock>2</Number_x0020_in_x0020_Stock>
+    <NumberInStock>2</NumberInStock>
   </Product>
   <Product>
     <Id>2037</Id>
     <Name>Jonny the pig</Name>
     <Genre>Animal With No Joints</Genre>
     <Description>A little piggy</Description>
-    <Number_x0020_in_x0020_Stock>3</Number_x0020_in_x0020_Stock>
+    <NumberInStock>3</NumberInStock>
   </Product>
   <Product>
     <Id>2038</Id>
     <Name>Dave the sloth</Name>
     <Genre>Animal With No Joints</Genre>
     <Description>very soft to touch</Description>
-    <Number_x0020_in_x0020_Stock>2</Number_x0020_in_x0020_Stock>
+    <NumberInStock>2</NumberInStock>
   </Product>
   <Product>
     <Id>2039</Id>
     <Name>GOGO</Name>
     <Genre>Meanie Kids</Genre>
     <Description>GOGO</Description>
-    <Number_x0020_in_x0020_Stock>1</Number_x0020_in_x0020_Stock>
+    <NumberInStock>1</NumberInStock>
   </Product>
   <Product>
     <Id>2040</Id>
     <Name>Sue</Name>
     <Genre>Meanie Kids</Genre>
     <Description>With a gift box</Description>
-    <Number_x0020_in_x0020_Stock>1</Number_x0020_in_x0020_Stock>
+    <NumberInStock>1</NumberInStock>
   </Product>
   <Product>
     <Id>2041</Id>
     <Name>Tom</Name>
     <Genre>Teddy</Genre>
     <Description>A brown bear</Description>
-    <Number_x0020_in_x0020_Stock>1</Number_x0020_in_x0020_Stock>
+    <NumberInStock>1</NumberInStock>
   </Product>
   <Product>
     <Id>2042</Id>
     <Name>Andy</Name>
     <Genre>Animal With Joints</Genre>
     <Description>A hippo</Description>
-    <Number_x0020_in_x0020_Stock>1</Number_x0020_in_x0020_Stock>
+    <NumberInStock>1</NumberInStock>
   </Product>
   <Product>
     <Id>2043</Id>
     <Name>Melon</Name>
     <Genre>Animal With Joints</Genre>
     <Description>A little bunny</Description>
-    <Number_x0020_in_x0020_Stock>1</Number_x0020_in_x0020_Stock>
+    <NumberInStock>1</NumberInStock>
   </Product>
   <Product>
     <Id>2044</Id>
     <Name>Zoe</Name>
     <Genre>Teddy</Genre>
     <Description>in a t-shirt</Description>
-    <Number_x0020_in_x0020_Stock>3</Number_x0020_in_x0020_Stock>
+    <NumberInStock>3</NumberInStock>
   </Product>
 </DocumentElement>

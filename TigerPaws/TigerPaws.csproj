@@ -225,6 +225,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelperExtensions.cs" />
     <Compile Include="Migrations\201806070350593_InitialModel.cs" />
     <Compile Include="Migrations\201806070350593_InitialModel.Designer.cs">
       <DependentUpon>201806070350593_InitialModel.cs</DependentUpon>
@@ -447,6 +448,8 @@
     <Content Include="Content\Images\TigerPawsLogo.png" />
     <Content Include="Content\Images\TigerPawsLogoSmall.png" />
     <Content Include="Content\Images\TigerPawsNavbar.png" />
+    <Content Include="Content\myStyle1.xslt" />
+    <Content Include="Content\myStyle2.xslt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -550,14 +553,18 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -595,6 +602,7 @@
     <Content Include="Views\CSV\Index.cshtml" />
     <Content Include="Views\CSV\Display.cshtml" />
     <Content Include="Views\Products\ViewCSV.cshtml" />
+    <Content Include="Views\Products\ViewXML.cshtml" />
     <None Include="Web.Testing.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -602,7 +610,6 @@
   <ItemGroup>
     <Folder Include="Content\Temp\" />
     <Folder Include="Content\Uploads\" />
-    <Folder Include="Views\ReadCSV\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

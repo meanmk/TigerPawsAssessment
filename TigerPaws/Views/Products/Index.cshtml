@@ -54,21 +54,21 @@
 </table>
 
 <div class="linkButton">
-    <button class="btn btn-default">
-        @Html.ActionLink("Export to Csv", "ExportToCsv")
-    </button>
+   
+        @Html.ActionLink("Export to Csv", "ExportToCsv", null, new { @class = "btn btn-primary" })
+  
 </div>
 
 <div class="linkButton">
-    <button class="btn btn-default">
-        @Html.ActionLink("View Csv", "ViewCsv")
-    </button>
+   
+        @Html.ActionLink("View Csv", "ViewCsv", null, new { @class = "btn btn-primary" })
+   
 </div>
 
 <div class="linkButton">
-    <button class="btn btn-default">
-        @Html.ActionLink("Upload Csv", "Index", "CSV")
-    </button>
+ 
+        @Html.ActionLink("Upload Csv", "Index", "CSV", null, new { @class = "btn btn-primary" })
+  
 </div>
 
 

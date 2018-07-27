@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
+using System.Xml.Xsl;
 using TigerPaws.Models;
 using TigerPaws.ViewModels;
 
@@ -200,7 +202,7 @@ namespace TigerPaws.Controllers
 
             var products = db.Products.Include(g => g.Genre).ToList();
             StringWriter sw = new StringWriter();
-            sw.WriteLine("Id,Name,Genre,Description,Number in Stock");
+            sw.WriteLine("Id,Name,Genre,Description,NumberInStock");
             foreach (var item in products)
             {
                 sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
@@ -216,30 +218,8 @@ namespace TigerPaws.Controllers
             return File(new System.Text.UTF8Encoding().GetBytes(sw.ToString()), "text/csv", fileName);
 
         }
+
         public ActionResult ViewCSV()
-        {
-
-            var products = db.Products.Include(g => g.Genre).ToList();
-            using (StringWriter sw = new StringWriter())
-            {
-                sw.WriteLine("Id,Name,Genre,Description,Number in Stock");
-                foreach (var item in products)
-                {
-                    sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
-                                               item.Id,
-                                               item.Name,
-                                               item.Genre.Name,
-                                               item.Description,
-                                               item.NumberInStock));
-                }
-                string result = sw.ToString();
-                ViewBag.Data = result;
-
-            }
-            return View();
-        }
-
-        public ActionResult CSVtoXML()
         {
 
             DataTable dt = new DataTable();
@@ -249,7 +229,66 @@ namespace TigerPaws.Controllers
             {
                 using (var sw = new StreamWriter(mem, Encoding.UTF8))
                 {
-                    sw.WriteLine("Id,Name,Genre,Description,Number in Stock");
+                    sw.WriteLine("Id,Name,Genre,Description,NumberInStock");
+
+                    foreach (var item in products)
+                    {
+                        sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
+                                                   item.Id,
+                                                   item.Name,
+                                                   item.Genre.Name,
+                                                   item.Description,
+                                                   item.NumberInStock));
+                    }
+                    sw.Flush();
+                    mem.Position = 0;
+
+                    using (StreamReader streamReader = new StreamReader(mem))
+                    {
+                        string[] headers = streamReader.ReadLine().Split(',');
+
+                        foreach (string header in headers)
+                        {
+                            dt.Columns.Add(header);
+                        }
+
+                        while (!streamReader.EndOfStream)
+                        {
+                            string[] rows = streamReader.ReadLine().Split(',');
+
+                            if (rows.Length > 1)
+                            {
+                                DataRow dr = dt.NewRow();
+
+                                for (int i = 0; i < headers.Length; i++)
+                                {
+                                    dr[i] = rows[i].Trim();
+                                }
+
+                                dt.Rows.Add(dr);
+                            }
+
+                        }
+                    }
+                    ViewBag.Data = dt;
+                    return View();
+                }
+            }
+
+        }
+
+        public ActionResult CSVtoXML()
+        {
+
+            DataTable dt = new DataTable();
+            var products = db.Products.Include(g => g.Genre).ToList();
+
+            //Save the data in memory
+            using (var mem = new MemoryStream())
+            {
+                using (var sw = new StreamWriter(mem, Encoding.UTF8))
+                {
+                    sw.WriteLine("Id,Name,Genre,Description,NumberInStock");
 
                     foreach (var item in products)
                     {
@@ -297,8 +336,26 @@ namespace TigerPaws.Controllers
                     var saveName = "ProductList" + DateTime.Now.ToString() + ".xml";
                     //File download
                     return File(Server.MapPath("~/Content/Temp/writexml.xml"), "application/xml", saveName);
-               }
+                }
             }
+
+        }
+
+        public ActionResult ViewXML()
+        {
+            //         string content = string.Empty;
+            //        var filePath = Server.MapPath("~/Content/Temp/writexml.xml");
+            //
+            //      using (StreamReader reader = new StreamReader(filePath))
+            //    {
+            //      content = reader.ReadToEnd();
+            //}
+            // ViewBag.Data = content;
+            // return View();
+
+           string readXML = System.IO.File.ReadAllText(Server.MapPath("~/Content/Temp/writexml.xml"));
+           ViewBag.Data = readXML;
+            return View();
         }
     }
 }

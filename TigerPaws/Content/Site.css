@@ -104,5 +104,11 @@ margin-top:50px;
 }
 
 .exportButton{
-    margin-top: 30px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 25px;
+}
+
+.myStyle {
+    margin-top: 20px;
 }
