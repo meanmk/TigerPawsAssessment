@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes"?>
-<DocumentElement>
+<Products>
   <Product>
     <Id>2035</Id>
     <Name>Dora</Name>
@@ -51,7 +51,7 @@
   </Product>
   <Product>
     <Id>2042</Id>
-    <Name>Andy</Name>
+    <Name>KABA</Name>
     <Genre>Animal With Joints</Genre>
     <Description>A hippo</Description>
     <NumberInStock>1</NumberInStock>
@@ -70,4 +70,4 @@
     <Description>in a t-shirt</Description>
     <NumberInStock>3</NumberInStock>
   </Product>
-</DocumentElement>
+</Products>

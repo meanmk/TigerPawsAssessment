@@ -64,6 +64,7 @@ namespace TigerPaws.Controllers
             //Name the table
             dt.TableName = "Product";
             string filePath = Server.MapPath("~/Content/Uploads/writexml.xml");
+            
             //Write xml file and save in the file path
             dt.WriteXml(filePath);
             var saveName = "ProductList" + DateTime.Now.ToString() + ".xml";

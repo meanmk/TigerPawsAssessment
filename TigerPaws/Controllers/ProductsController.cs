@@ -219,10 +219,25 @@ namespace TigerPaws.Controllers
 
         }
 
+        public ActionResult Display()
+        {
+
+            string fileName = "UploadedFile";
+            string localDestination = Path.Combine(Server.MapPath("~/Content/Uploads"), fileName);
+            //Use CSVReaderHelper to read the file and put it in datatable
+            DataTable dt = CSVReaderHelper.GetCSVData(localDestination);
+
+            //Display datatable
+            ViewBag.Data = dt;
+
+            return View();
+        }
+
+
         public ActionResult ViewCSV()
         {
 
-            DataTable dt = new DataTable();
+            DataTable dt = new DataTable("Products");
             var products = db.Products.Include(g => g.Genre).ToList();
 
             using (var mem = new MemoryStream())
@@ -269,11 +284,8 @@ namespace TigerPaws.Controllers
 
                                 dt.Rows.Add(dr);
                             }
-
-                        }                      
-                       
+                        }                                            
                     }
-                   
 
                     ViewBag.Data = dt;
                     return View();
@@ -281,11 +293,11 @@ namespace TigerPaws.Controllers
             }
         }
 
-      
+  
 
-        public ActionResult CSVtoXML()
+        public ActionResult DownloadXML()
         {
-
+            DataSet ds = new DataSet("Products");
             DataTable dt = new DataTable();
             var products = db.Products.Include(g => g.Genre).ToList();
 
@@ -336,12 +348,80 @@ namespace TigerPaws.Controllers
                         }
                     }
                     dt.TableName = "Product";
-                    string filePath = Server.MapPath("~/Content/Temp/writexml.xml");
-                    //Write xml file and save in the file path
-                    dt.WriteXml(filePath);
+                    ds.Tables.Add(dt);
+                    string filePath = Server.MapPath("~/Content/XML/writexml.xml");
+                 
+                    ds.WriteXml(filePath);
+             
                     var saveName = "ProductList" + DateTime.Now.ToString() + ".xml";
                     //File download
-                    return File(Server.MapPath("~/Content/Temp/writexml.xml"), "application/xml", saveName);
+                    return File(Server.MapPath("~/Content/XML/writexml.xml"), "application/xml", saveName);
+                }
+            }
+
+        }
+
+        public ActionResult ConvertToXML()
+        {
+            DataSet ds = new DataSet("Products");
+            DataTable dt = new DataTable();
+            var products = db.Products.Include(g => g.Genre).ToList();
+
+            //Save the data in memory
+            using (var mem = new MemoryStream())
+            {
+                using (var sw = new StreamWriter(mem, Encoding.UTF8))
+                {
+                    sw.WriteLine("Id,Name,Genre,Description,NumberInStock");
+
+                    foreach (var item in products)
+                    {
+                        sw.WriteLine(string.Format("{0},{1},{2},{3},{4}",
+                                                   item.Id,
+                                                   item.Name,
+                                                   item.Genre.Name,
+                                                   item.Description,
+                                                   item.NumberInStock));
+                    }
+                    sw.Flush();
+                    mem.Position = 0;
+
+                    using (StreamReader streamReader = new StreamReader(mem))
+                    {
+                        string[] headers = streamReader.ReadLine().Split(',');
+
+                        foreach (string header in headers)
+                        {
+                            dt.Columns.Add(header);
+                        }
+
+                        while (!streamReader.EndOfStream)
+                        {
+                            string[] rows = streamReader.ReadLine().Split(',');
+
+                            if (rows.Length > 1)
+                            {
+                                DataRow dr = dt.NewRow();
+
+                                for (int i = 0; i < headers.Length; i++)
+                                {
+                                    dr[i] = rows[i].Trim();
+                                }
+
+                                dt.Rows.Add(dr);
+                            }
+
+                        }
+                    }
+                    dt.TableName = "Product";
+                    ds.Tables.Add(dt);
+                    string filePath = Server.MapPath("~/Content/XML/writexml.xml");
+
+                    ds.WriteXml(filePath);
+
+                    var saveName = "ProductList" + DateTime.Now.ToString() + ".xml";
+                    //File download
+                    return RedirectToAction("ViewXML");
                 }
             }
 
@@ -359,8 +439,34 @@ namespace TigerPaws.Controllers
             // ViewBag.Data = content;
             // return View();
 
-           string readXML = System.IO.File.ReadAllText(Server.MapPath("~/Content/Temp/writexml.xml"));
+           string readXML = System.IO.File.ReadAllText(Server.MapPath("~/Content/XML/writexml.xml"));
            ViewBag.Data = readXML;
+            return View();
+        }
+
+        public ActionResult ReadXML()
+        {
+            DataSet ds = new DataSet();
+            StringBuilder sb = new StringBuilder();
+
+            ds.ReadXml(Server.MapPath("~/Content/XML/writexml.xml"));
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                sb.AppendFormat("Id = {0}", dr["Id"]);
+                sb.AppendFormat(Environment.NewLine);
+                sb.AppendFormat("Name = {0}", dr["Name"]);
+                sb.AppendFormat(Environment.NewLine);
+                sb.AppendFormat("Genre = {0}", dr["Genre"]);
+                sb.AppendFormat(Environment.NewLine);
+                sb.AppendFormat("Description = {0}", dr["Description"]);
+                sb.AppendFormat(Environment.NewLine);
+                sb.AppendFormat("NumberInStock = {0}", dr["NumberInStock"]);
+                sb.AppendFormat(Environment.NewLine);
+
+            }
+            ViewBag.text = sb.ToString();
+            
             return View();
         }
     }

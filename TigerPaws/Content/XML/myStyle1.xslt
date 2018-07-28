@@ -1,7 +1,7 @@
 <?xml version="1.0"?> 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
-	<xsl:template match="DocumentElement">
+	<xsl:template match="Products">
 		<html>
         <head>
 			<title>Our Products</title>

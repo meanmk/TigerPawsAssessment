@@ -448,8 +448,9 @@
     <Content Include="Content\Images\TigerPawsLogo.png" />
     <Content Include="Content\Images\TigerPawsLogoSmall.png" />
     <Content Include="Content\Images\TigerPawsNavbar.png" />
-    <Content Include="Content\myStyle1.xslt" />
-    <Content Include="Content\myStyle2.xslt" />
+    <Content Include="Content\XML\myStyle1.xslt" />
+    <Content Include="Content\XML\myStyle2.xslt" />
+    <Content Include="Content\XML\writexml.xml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -603,6 +604,7 @@
     <Content Include="Views\CSV\Display.cshtml" />
     <Content Include="Views\Products\ViewCSV.cshtml" />
     <Content Include="Views\Products\ViewXML.cshtml" />
+    <Content Include="Views\Products\ReadXML.cshtml" />
     <None Include="Web.Testing.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
