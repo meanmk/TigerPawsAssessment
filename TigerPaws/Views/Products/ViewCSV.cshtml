@@ -1,56 +1,57 @@
 ﻿@using System.Data;
-<table id="CSVDataTable" class="table table-bordered table-hover">
 
-    @if (ViewBag.Data != null)
-    {
-        <tr>
-            @foreach (DataColumn column in (ViewBag.Data as DataTable).Columns)
-            {
-                <th>@column.ColumnName.ToUpper()</th>
-            }
-        </tr>
+<h3 class="viewFiles">View CSV</h3>
+        <table id="CSVDataTable" class="table table-bordered table-hover">
 
-        if ((ViewBag.Data as DataTable).Rows.Count > 0)
-        {
-            foreach (DataRow dr in (ViewBag.Data as DataTable).Rows)
+            @if (ViewBag.Data != null)
             {
                 <tr>
                     @foreach (DataColumn column in (ViewBag.Data as DataTable).Columns)
                     {
-                        <td data-title='@column.ColumnName'>@dr[column].ToString()</td>
+                        <th>@column.ColumnName.ToUpper()</th>
                     }
                 </tr>
-            }
-        }
-        else
-        {
-            int count = (ViewBag.Data as DataTable).Columns.Count;
-            <tr>
-                <td colspan='@count' style="color:red;">
-                    No Data Found.
-                </td>
-            </tr>
-        }
-    }
-    else
-    {
-        if (ViewBag.Error != null)
-        {
-            <tr>
-                <td style="color:red;">
-                    @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
-                </td>
-            </tr>
-        }
-    }
-</table>
 
+                if ((ViewBag.Data as DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (ViewBag.Data as DataTable).Rows)
+                    {
+                        <tr>
+                            @foreach (DataColumn column in (ViewBag.Data as DataTable).Columns)
+                            {
+                                <td data-title='@column.ColumnName'>@dr[column].ToString()</td>
+                            }
+                        </tr>
+                    }
+                }
+                else
+                {
+                    int count = (ViewBag.Data as DataTable).Columns.Count;
+                    <tr>
+                        <td colspan='@count' style="color:red;">
+                            No Data Found.
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                if (ViewBag.Error != null)
+                {
+                    <tr>
+                        <td style="color:red;">
+                            @(ViewBag.Error != null ? ViewBag.Error.ToString() : "")
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+  
 
     @Html.ActionLink("View XML", "ViewXML", null, new { @class = "btn btn-primary exportButton" })
 
 
 
-        @Html.ActionLink("Export to XML", "CSVtoXML", null, new { @class = "btn btn-primary exportButton" })   
 
 
 

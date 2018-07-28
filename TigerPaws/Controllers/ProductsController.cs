@@ -240,11 +240,13 @@ namespace TigerPaws.Controllers
                                                    item.Description,
                                                    item.NumberInStock));
                     }
+                   
                     sw.Flush();
                     mem.Position = 0;
 
                     using (StreamReader streamReader = new StreamReader(mem))
                     {
+                       
                         string[] headers = streamReader.ReadLine().Split(',');
 
                         foreach (string header in headers)
@@ -268,14 +270,18 @@ namespace TigerPaws.Controllers
                                 dt.Rows.Add(dr);
                             }
 
-                        }
+                        }                      
+                       
                     }
+                   
+
                     ViewBag.Data = dt;
                     return View();
                 }
             }
-
         }
+
+      
 
         public ActionResult CSVtoXML()
         {

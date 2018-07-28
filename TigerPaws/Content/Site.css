@@ -108,7 +108,34 @@ margin-top:50px;
     margin-top: 10px;
     margin-left: 25px;
 }
-
-.myStyle {
-    margin-top: 20px;
+.button1, .button2 ,.downloadXmlButton {
+    margin-right: 20px;
 }
+.downloadButton {
+    background-color:#FFD57E;
+}
+
+.viewFiles {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.section-left {
+    display: inline-block;
+    float: left;
+   
+}
+.section-right {
+    display: inline-block;
+    float: left;
+    height: 300px;
+}
+
+.section-right-box {
+    background-color: #FFD57E;
+
+    border-radius: 3px;
+    margin: 20px;
+    
+}
+
